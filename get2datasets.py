@@ -35,6 +35,7 @@ def get2datasets(): # QRS1, QRS2
     patch_len2 = 5
     X1 = []
     X2 = []
+    dists = 0
     for patient_id in json_data.keys():
         ecg_json = json_data[patient_id]
         i_qrs_triplets = get_triplets(ecg_json, "qrs", "i")
@@ -42,9 +43,13 @@ def get2datasets(): # QRS1, QRS2
         for triplet in i_qrs_triplets:
             center = triplet[1]
             right = triplet[2]
+
             x1 = cut_patch(i_signal, center, patch_len1)
             x2 = cut_patch(i_signal, right, patch_len2)
             if x1 is not None and x2 is not None:
                 X1.append(x1)
                 X2.append(x2)
+                dists = abs(center-right) + dists
+    dist = dists/len(X1)
+    print ("average distance btw p1 and p2 = "+ str(dist))
     return np.array(X1), np.array(X2)

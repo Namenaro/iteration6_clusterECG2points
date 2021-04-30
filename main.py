@@ -10,8 +10,8 @@ def get_discrete_labelsAff(X1, X2):
     return y1, y2
 
 def get_discrete_labels(X1, X2):
-    y1 = KMeans(n_clusters=2).fit(X1).labels_
-    y2 = KMeans(n_clusters=2).fit(X2).labels_
+    y1 = KMeans(n_clusters=3).fit(X1).labels_
+    y2 = KMeans(n_clusters=10).fit(X2).labels_
     return y1, y2
 
 def split_y2_by_y1(Y1, Y2):

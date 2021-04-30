@@ -15,7 +15,7 @@ def get_healthy_7():
     folder = '/home/yana/ECG_DATA'
     filename = '7_pacients_ideally_healthy_and_normal_axis.json'
     path = os.path.join(folder, filename)
-    return select_and_load_json(path)
+    return select_and_load_json()
 
 def get_triplets(patient, component, lead_name='i'):
     return patient['Leads'][lead_name]['DelineationDoc'][component]
@@ -38,6 +38,7 @@ def get2datasets(): # QRS i
     X2 = []
     dists = 0
     delta = 0
+    print ("num patients is " + str(len(json_data.keys())))
     for patient_id in json_data.keys():
         ecg_json = json_data[patient_id]
         i_qrs_triplets = get_triplets(ecg_json, "qrs", "i")

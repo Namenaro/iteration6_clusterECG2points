@@ -32,8 +32,8 @@ def cut_patch(signal, coord, patch_len):
 
 def get2datasets(): # QRS i
     json_data = get_healthy_7()
-    patch_len1 = 13
-    patch_len2 = 13
+    patch_len1 = 5
+    patch_len2 = 5
     X1 = []
     X2 = []
     dists = 0

@@ -54,8 +54,9 @@ if __name__ == "__main__":
     X1, X2 = get2datasets()
     Y1, Y2 = get_discrete_labels(X1, X2)
     visualise_conditionality_of_clusters(Y1, Y2)
-    visualise_clusters_patches(X2, Y2)
-    visualise_clusters_patches(X1, Y2)
+
     visualise_clusters_patches(X1, Y1)
+    visualise_clusters_patches(X1, Y2)
+
 
 

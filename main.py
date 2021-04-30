@@ -1,12 +1,17 @@
 from get2datasets import get2datasets
 
-from sklearn.cluster import AffinityPropagation
+from sklearn.cluster import AffinityPropagation, KMeans
 import numpy as np
 import matplotlib.pyplot as plt
 
-def get_discrete_labels(X1, X2):
+def get_discrete_labelsAff(X1, X2):
     y1 = AffinityPropagation().fit(X1).labels_
     y2 = AffinityPropagation().fit(X2).labels_
+    return y1, y2
+
+def get_discrete_labels(X1, X2):
+    y1 = KMeans(n_clusters=2).fit(X1).labels_
+    y2 = KMeans(n_clusters=2).fit(X2).labels_
     return y1, y2
 
 def split_y2_by_y1(Y1, Y2):
@@ -23,7 +28,8 @@ def show_conditional_hists(y2_by_y1, n_bins):
     fig, axs = plt.subplots(num_hists, sharey=True, sharex=True)
     fig.suptitle('conditional hists')
     for i in range(num_hists):
-        axs[i].hist(y2_by_y1[i], n_bins, histtype='bar')
+        axs[i].hist(y2_by_y1[i], bins=np.arange(n_bins+1)-0.5, histtype='bar')
+
     plt.show()
 
 def visualise_conditionality_of_clusters(Y1, Y2):
@@ -48,6 +54,8 @@ if __name__ == "__main__":
     X1, X2 = get2datasets()
     Y1, Y2 = get_discrete_labels(X1, X2)
     visualise_conditionality_of_clusters(Y1, Y2)
-    visualise_clusters_patches(X2, Y1)
+    visualise_clusters_patches(X2, Y2)
+    visualise_clusters_patches(X1, Y2)
+    visualise_clusters_patches(X1, Y1)
 
 
